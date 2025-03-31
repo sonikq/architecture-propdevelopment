@@ -1,0 +1,190 @@
+# Role: secrets-manager
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: production
+  name: secrets-manager
+rules:
+  - apiGroups: [""]
+    resources: ["secrets"]
+    resourceNames: ["app-secret", "db-secret"]
+    verbs: ["get", "update", "create", "delete"]
+
+---
+# ClusterRole: cluster-manager
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cluster-manager
+rules:
+  - apiGroups: [""]
+    resources: ["nodes", "pods", "services", "configmaps", "secrets", "namespaces", "events", "deployments", "persistentvolumes", "persistentvolumeclaims"]
+    verbs: ["get", "list", "create", "update", "delete", "patch"]
+
+---
+# Role: client-developer
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: client
+  name: client-developer
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps", "deployments"]
+    verbs: ["get", "list", "create", "update", "delete", "patch"]
+  - apiGroups: [""]
+    resources: ["events", "pods/log"]
+    verbs: ["get", "list"]
+
+---
+# Role: tenant-developer
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: tenant
+  name: tenant-developer
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps", "deployments"]
+    verbs: ["get", "list", "create", "update", "delete", "patch"]
+
+---
+
+# Role: accounting-developer
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: accounting
+  name: accounting-developer
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps", "deployments"]
+    verbs: ["get", "list", "create", "update", "delete", "patch"]
+
+---
+
+# Role: analytics-developer
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: analytics
+  name: analytics-developer
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps", "deployments"]
+    verbs: ["get", "list", "create", "update", "delete", "patch"]
+
+---
+
+# Role: client-viewer
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: client
+  name: client-viewer
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps", "deployments", "events"]
+    verbs: ["get", "list"]
+  - apiGroups: [""]
+    resources: ["pods/log"]
+    verbs: ["get", "list"]
+
+---
+
+# Role: tenant-viewer
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: tenant
+  name: tenant-viewer
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps", "deployments", "events"]
+    verbs: ["get", "list"]
+  - apiGroups: [""]
+    resources: ["pods/log"]
+    verbs: ["get", "list"]
+
+---
+
+# Role: accounting-viewer
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: accounting
+  name: accounting-viewer
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps", "deployments", "events"]
+    verbs: ["get", "list"]
+  - apiGroups: [""]
+    resources: ["pods/log"]
+    verbs: ["get", "list"]
+
+---
+
+# Role: analytics-viewer
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: analytics
+  name: analytics-viewer
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps", "deployments", "events"]
+    verbs: ["get", "list"]
+  - apiGroups: [""]
+    resources: ["pods/log"]
+    verbs: ["get", "list"]
+
+---
+
+# ClusterRole: logs-viewer
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: logs-viewer
+rules:
+  - apiGroups: [""]
+    resources: ["events", "pods/log"]
+    verbs: ["get", "list"]
+
+---
+
+# ClusterRole: read-only-cluster
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: read-only-cluster
+rules:
+  - apiGroups: [""]
+    resources: ["*"]
+    verbs: ["get", "list"]
+
+---
+
+# ClusterRole: node-reader
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: node-reader
+rules:
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["get", "list"]
+
+---
+# Role: ci-cd-runner
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: cicd
+  name: ci-cd-runner
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps", "deployments"]
+    verbs: ["create", "update", "delete", "patch", "get", "list"]
+  - apiGroups: ["apps"]
+    resources: ["statefulsets", "replicasets"]
+    verbs: ["create", "update", "delete", "patch", "get", "list"]

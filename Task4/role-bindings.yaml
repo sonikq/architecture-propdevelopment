@@ -1,0 +1,235 @@
+# Binding: secrets-manager
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: production
+  name: secrets-manager-binding
+subjects:
+  - kind: User
+    name: security-user
+    apiGroup: rbac.authorization.k8s.io
+  - kind: User
+    name: devops
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: secrets-manager
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+# Binding: cluster-manager
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cluster-manager-binding
+subjects:
+  - kind: User
+    name: devops
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cluster-manager
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+# Binding: client-developer
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: client
+  name: client-developer-binding
+subjects:
+  - kind: User
+    name: client-developer
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: client-developer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+# Binding: tenant-developer
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: tenant
+  name: tenant-developer-binding
+subjects:
+  - kind: User
+    name: tenant-developer
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: tenant-developer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+# Binding: accounting-developer
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: accounting
+  name: accounting-developer-binding
+subjects:
+  - kind: User
+    name: accounting-developer
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: accounting-developer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+# Binding: analytics-developer
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: analytics
+  name: analytics-developer-binding
+subjects:
+  - kind: User
+    name: analytics-developer
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: analytics-developer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+# Binding: client-viewer
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: client
+  name: client-viewer-binding
+subjects:
+  - kind: User
+    name: client-manager
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: client-viewer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+# Binding: tenant-viewer
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: tenant
+  name: tenant-viewer-binding
+subjects:
+  - kind: User
+    name: tenant-manager
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: tenant-viewer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+# Binding: accounting-viewer
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: accounting
+  name: accounting-viewer-binding
+subjects:
+  - kind: User
+    name: accounting-manager
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: accounting-viewer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+# Binding: analytics-viewer
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: analytics
+  name: analytics-viewer-binding
+subjects:
+  - kind: User
+    name: analytics-manager
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: analytics-viewer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+# Binding: logs-viewer
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: logs-viewer-binding
+subjects:
+  - kind: User
+    name: sre-user
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: logs-viewer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+# Binding: read-only-cluster
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: read-only-cluster-binding
+subjects:
+  - kind: User
+    name: security-user
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: read-only-cluster
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+# Binding: node-reader
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: node-reader-binding
+subjects:
+  - kind: User
+    name: node-engineer
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: node-reader
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+# Binding: ci-cd-runner
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: cicd
+  name: ci-cd-runner-binding
+subjects:
+  - kind: ServiceAccount
+    name: ci-cd-runner
+    namespace: cicd
+roleRef:
+  kind: Role
+  name: ci-cd-runner
+  apiGroup: rbac.authorization.k8s.io
