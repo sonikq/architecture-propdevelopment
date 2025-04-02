@@ -25,8 +25,7 @@
 ```kubectl apply -f non-admin-api-allow.yaml```
 
 Когда настроите и примените сетевые политики, проверьте, что трафик есть между сервисами, для которых он разрешён, но его нет между сервисами, для которых он запрещён. Для этого используйте команду:
-```kubectl run test-$RANDOM --rm -i -t --image=alpine -- sh
-/ # wget -qO- --timeout=2 http://apiserver
-```
+```kubectl run test-$RANDOM --rm -i -t --image=alpine -- sh```
+```/ # wget -qO- --timeout=2 http://apiserver```
 
 Когда всё будет готово, загрузите файл с сетевыми политиками в директорию Task5.
